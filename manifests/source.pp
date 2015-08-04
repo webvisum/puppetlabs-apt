@@ -69,9 +69,6 @@ define apt::source(
 
   if ! $release {
     $_release = $::apt::params::xfacts['lsbdistcodename']
-    unless $_release {
-      fail('lsbdistcodename fact not available: release parameter required')
-    }
   } else {
     $_release = $release
   }
@@ -103,9 +100,6 @@ define apt::source(
 
   if $key {
     if is_hash($key) {
-      unless $key['id'] {
-        fail('key hash must contain at least an id entry')
-      }
       $_key = merge($::apt::params::source_key_defaults, $_deprecated_key, $key)
     } else {
       validate_string($key)

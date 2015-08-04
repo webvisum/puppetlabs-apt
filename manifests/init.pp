@@ -14,16 +14,6 @@ class apt(
   if $update['frequency'] {
     validate_re($update['frequency'], $frequency_options)
   }
-  if $update['timeout'] {
-    unless is_integer($update['timeout']) {
-      fail('timeout value for update must be an integer')
-    }
-  }
-  if $update['tries'] {
-    unless is_integer($update['tries']) {
-      fail('tries value for update must be an integer')
-    }
-  }
 
   $_update = merge($::apt::update_defaults, $update)
   include ::apt::update
@@ -48,11 +38,7 @@ class apt(
   if $proxy['host'] {
     validate_string($proxy['host'])
   }
-  if $proxy['port'] {
-    unless is_integer($proxy['port']) {
-      fail('$proxy port must be an integer')
-    }
-  }
+
   if $proxy['https'] {
     validate_bool($proxy['https'])
   }
